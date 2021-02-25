@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { StoreModule } from '@ngrx/store';
+import { counterStateReducer } from 'common-store';
 import {View1Component} from './view1/view1.component';
 import {View2Component} from './view2/view2.component';
 
@@ -12,8 +14,14 @@ export const app1Routes: Routes = [
   { path: 'app1/two', redirectTo: 'two', pathMatch: 'prefix' }
 ];
 
+export const counterModuleReducers = {
+	counterState: counterStateReducer
+};
+
 @NgModule({
-  imports: [RouterModule.forChild(app1Routes)],
+  imports: [
+    RouterModule.forChild(app1Routes),
+    StoreModule.forFeature('app1CounterModule', counterModuleReducers)],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
