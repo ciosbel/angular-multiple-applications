@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import { CounterActions, CounterState, selectCounterState } from 'common-store';
+import { CounterActions, CounterState, getCounter } from 'common-store';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -10,10 +10,10 @@ import { Observable } from 'rxjs';
 })
 export class View1Component implements OnInit {
 
-  currentState$: Observable<CounterState>;
+  currentState$: Observable<number>;
 
   constructor(private store: Store<CounterState>) {
-    this.currentState$ = this.store.pipe(select(selectCounterState));
+    this.currentState$ = this.store.pipe(select(getCounter));
   }
 
   ngOnInit(): void {

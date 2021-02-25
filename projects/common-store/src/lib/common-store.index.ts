@@ -30,6 +30,11 @@ export const selectCounterState = createSelector(
 	(state: CounterStateModule) => state.counterState
 );
 
+export const getCounter = createSelector(
+	selectCounterState,
+	(state: CounterState) => state.counter
+);
+
 // STATE/REDUCER
 
 export interface CounterState {
