@@ -5,8 +5,9 @@
     "baseUrl": "./",
     "paths": {
       "common-store": [
-        "dist/common-store/common-store",
-        "dist/common-store"
+        //"dist/common-store/common-store",
+        //"dist/common-store"
+        "projects/common-store/src/public-api.ts"
       ]
     },
     "outDir": "./dist/out-tsc",
