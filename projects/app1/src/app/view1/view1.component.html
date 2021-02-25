@@ -1,4 +1,7 @@
 <app-nav></app-nav>
 <p>
   app1 view1 works!
+  <br/>
+  <button (click)="onClick($event)">Increment!</button>
 </p>
+<pre>current state: {{(currentState$ | async)?.counter}}</pre>

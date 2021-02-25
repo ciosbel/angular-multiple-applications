@@ -8,6 +8,7 @@ import { environment } from 'src/environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
+import { counterStateModuleFeatureKey, counterStateModuleReducers } from 'common-store';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,8 @@ import { NavComponent } from './nav/nav.component';
 			logOnly: environment.production, // Restrict extension to log-only mode,
 			name: 'Store DevTools'
 		}),
+		// TODO: we need also the original library key to be present. This smells.
+		StoreModule.forFeature(counterStateModuleFeatureKey, counterStateModuleReducers)
   ],
   providers: [],
   bootstrap: [AppComponent]

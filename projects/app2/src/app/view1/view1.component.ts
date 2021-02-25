@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { select, Store } from '@ngrx/store';
+import { CounterActions, CounterState, selectCounterState } from 'common-store';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-view1',
@@ -7,9 +10,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class View1Component implements OnInit {
 
-  constructor() { }
+  currentState$: Observable<CounterState>;
+
+  constructor(private store: Store<CounterState>) {
+    this.currentState$ = this.store.pipe(select(selectCounterState));
+  }
 
   ngOnInit(): void {
   }
 
+  onClick($event: any) {
+		this.store.dispatch(CounterActions.increment());
+  }
 }
