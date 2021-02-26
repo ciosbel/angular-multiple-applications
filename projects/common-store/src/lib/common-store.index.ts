@@ -1,11 +1,12 @@
 
-import { createFeatureSelector, createSelector, Action, createReducer, createAction, on } from "@ngrx/store";
+import { createFeatureSelector, createSelector, Action, createReducer, createAction, on, ActionReducer, MetaReducer, props } from "@ngrx/store";
 
 // ACTIONS
 
 export namespace CounterActions {
 	export const increment = createAction(
-		'[Counter Service] increment'
+		'[Counter Service] increment',
+		props<{ context: string }>()
 	);
 }
 
@@ -60,3 +61,18 @@ const _counterStateReducer = createReducer(
 	initialState,
 	on(CounterActions.increment, _onIncrement)
 );
+
+export function metaReducersFactory(context: string): { metaReducers: MetaReducer<any>[] }  {
+	const noOpReducer = (state: any | undefined, action: Action) => state;
+	const contextBasedMetaReducer = (reducer: ActionReducer<any>): ActionReducer<any> => (state, action) => {
+		if (Object.keys(action).indexOf('context') !== -1) {
+			const contextValue = (action as {type:string, context:string}).context;
+			if (contextValue !== context) {
+				return noOpReducer(state, action);
+			}
+			return reducer(state, action);
+		}
+		return reducer(state, action);
+	};
+	return { metaReducers: [contextBasedMetaReducer] };
+}

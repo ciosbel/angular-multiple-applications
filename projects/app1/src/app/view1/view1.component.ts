@@ -20,6 +20,6 @@ export class View1Component implements OnInit {
   }
 
   onClick($event: any) {
-		this.store.dispatch(CounterActions.increment());
+		this.store.dispatch(CounterActions.increment({context: "app1CounterModule"}));
   }
 }

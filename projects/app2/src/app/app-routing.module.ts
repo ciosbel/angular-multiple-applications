@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { StoreModule } from '@ngrx/store';
-import { counterStateReducer } from 'common-store';
+import { ActionReducer, StoreModule, Action, MetaReducer } from '@ngrx/store';
+import { counterStateReducer, metaReducersFactory } from 'common-store';
 import {View1Component} from './view1/view1.component';
 import {View2Component} from './view2/view2.component';
 
@@ -21,7 +21,7 @@ export const counterModuleReducers = {
 @NgModule({
   imports: [
     RouterModule.forChild(app2Routes),
-    StoreModule.forFeature('app2CounterModule', counterModuleReducers)],
+    StoreModule.forFeature('app2CounterModule', counterModuleReducers, { ...metaReducersFactory('app2CounterModule') })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
