@@ -1,5 +1,4 @@
-
-import { createFeatureSelector, createSelector, Action, createReducer, createAction, on, ActionReducer, MetaReducer, props } from "@ngrx/store";
+import { createSelector, Action, createReducer, createAction, on, ActionReducer, MetaReducer, props } from "@ngrx/store";
 
 // ACTIONS
 
@@ -22,12 +21,21 @@ export const counterStateModuleReducers = {
 
 // SELECTORS
 
-export const counterStateModuleFeatureKey = 'counterStateModule';
+export const selectDocumentsSearchModuleState = (state: any) => state;
 
-export const selectDocumentsSearchModuleState = createFeatureSelector<CounterStateModule>(counterStateModuleFeatureKey);
+export const selectStateSlice = createSelector(
+	selectDocumentsSearchModuleState,
+	(state: any, props: any) => {
+		if (state && props && props.context && state[props.context]) {
+			return state[props.context] as CounterStateModule
+		}
+		console.warn('Attenzione: props.context non fornito per selectStateSlice');
+		return { counterState: initialState } as CounterStateModule;
+	}
+);
 
 export const selectCounterState = createSelector(
-	selectDocumentsSearchModuleState,
+	selectStateSlice,
 	(state: CounterStateModule) => state.counterState
 );
 

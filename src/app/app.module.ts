@@ -1,14 +1,13 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { EffectsModule } from '@ngrx/effects';
-import { ActionReducer, MetaReducer, StoreModule, Action } from '@ngrx/store';
+import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from 'src/environments/environment';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
-import { counterStateModuleFeatureKey, counterStateModuleReducers, counterStateReducer, } from 'common-store';
 
 @NgModule({
   declarations: [
@@ -33,9 +32,7 @@ import { counterStateModuleFeatureKey, counterStateModuleReducers, counterStateR
 			maxAge: 25, // Retains last 25 states
 			logOnly: environment.production, // Restrict extension to log-only mode,
 			name: 'Store DevTools'
-		}),
-		// TODO: we need also the original library key to be present. This smells.
-		StoreModule.forFeature(counterStateModuleFeatureKey, counterStateModuleReducers)
+		})
   ],
   providers: [],
   bootstrap: [AppComponent]

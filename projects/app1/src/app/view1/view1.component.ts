@@ -13,7 +13,7 @@ export class View1Component implements OnInit {
   currentState$: Observable<number>;
 
   constructor(private store: Store<CounterState>) {
-    this.currentState$ = this.store.pipe(select(getCounter));
+    this.currentState$ = this.store.pipe(select(getCounter, {context: 'app1CounterModule'}));
   }
 
   ngOnInit(): void {
